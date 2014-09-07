@@ -8,7 +8,7 @@ package neocompilerxfinalversion;
 
 /**
  * 
- * @author Sammy Guergachi <sguergachi at gmail.com>
+ * @author Neo Raiden X <neoraidenx@gmail.com>
  */
 public class NeoLexicAnalyzerX {
     public boolean NeoLexicAnalyzer(){
