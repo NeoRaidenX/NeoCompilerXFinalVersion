@@ -17,6 +17,11 @@ public class NeoCompilerXFinalVersion {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        NeoLexicAnalyzerX NeoLex = new NeoLexicAnalyzerX();
+        if(NeoLex.NeoLexicAnalyzer()){
+            for(String lexem : NeoLex.lexemList)
+                System.out.println(lexem);
+        }
     }
     
 }
