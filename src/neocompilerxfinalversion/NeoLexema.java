@@ -11,10 +11,10 @@ package neocompilerxfinalversion;
  * @author Neo Raiden X <neoraidenx@gmail.com>
  */
 public class NeoLexema {
-    String lexem, lexemType;
+    String lexem, token;
     public NeoLexema(String lexem, String lexemType){
         this.lexem = lexem;
-        this.lexemType = lexemType;
+        this.token = lexemType;
     }
 
     public String getLexem() {
@@ -25,12 +25,12 @@ public class NeoLexema {
         this.lexem = lexem;
     }
 
-    public String getLexemType() {
-        return lexemType;
+    public String getToken() {
+        return token;
     }
 
-    public void setLexemType(String lexemType) {
-        this.lexemType = lexemType;
+    public void setToken(String lexemType) {
+        this.token = lexemType;
     }
     
 

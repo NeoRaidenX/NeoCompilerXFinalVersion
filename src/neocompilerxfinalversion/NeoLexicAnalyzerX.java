@@ -80,9 +80,10 @@ public class NeoLexicAnalyzerX {
     };
     
     public final HashSet reservSet = new HashSet(Arrays.asList(keywords));
-    public ArrayList<NeoLexema> lexemList = new ArrayList();
+    public static ArrayList<NeoLexema> lexemList = new ArrayList();
     public LinkedHashMap<String, String> symbolTable = new LinkedHashMap();
     public int currentLine = 0, status = 0;
+    public static int currentSinIdx = 0;
     public String lexem = "";
     
     public boolean NeoLexicAnalyzer(){
@@ -186,29 +187,29 @@ public class NeoLexicAnalyzerX {
     private String getSymbolToken(int status){
         switch(status){
             case 1: case 21: case 22:
-                return "Aritmetico";
+                return "OpAritmetico";
             case 2: case 3: case 4: case 25:
-                return "Relacional";
+                return "OpRelacional";
             case 5: case 7:
                 return "Delim";
             case 6:
-                return "Asignacion";
+                return "OpAsignacion";
             case 9:
-                return "String";
+                return "Cadena";
             case 10:
                 return "Entero";
             case 12:
                 return "Decimal";
             case 13: case 15:
-                return "Logico";
+                return "OpLogico";
             case 14: case 16: case 18: case 19: case 20:
                 return "Identi";
             case 23:
                 return "Comentario";
             case 24:
-                return "Concatenador";
+                return "OpCadena";
             case 26:
-                return "Flecha";
+                return "OpFlecha";
             default:
                 return "ERR";
         }
@@ -232,9 +233,18 @@ public class NeoLexicAnalyzerX {
         return false;
     }
     
-    public static String nextSymbol(){
+    public static NeoLexema getCurrentSymbol(){
         
-        return "";
+        return lexemList.get(currentSinIdx++);
+    }
+    
+    public static NeoLexema getNextSymbol(){
+        return lexemList.get(currentSinIdx + 1);
+    }
+    
+    public static void killThemAll(){
+        while(getCurrentSymbol().equalsIgnoreCase(";")||getCurrentSymbol().equalsIgnoreCase("fin"))
+            getNextSymbol();
     }
     
     //TODO: modificar grafo para aceptar caracter &

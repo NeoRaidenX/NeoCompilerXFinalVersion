@@ -6,10 +6,54 @@
 
 package sintacticComponents;
 
+import neocompilerxfinalversion.NeoLexema;
+import neocompilerxfinalversion.NeoLexicAnalyzerX;
+import neocompilerxfinalversion.NeoSyntacticAnalyzerX;
+
 /**
  * 
  * @author Neo Raiden X <neoraidenx@gmail.com>
  */
 public class NeoUSO {
+    private boolean flag;
+    private NeoLexema lexObj;
+    
+    public NeoUSO(){
+    }
+
+    public boolean init() {
+        if(lexObj.getLexem().equalsIgnoreCase("con")){
+                lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
+            }
+            else{
+                NeoSyntacticAnalyzerX.printError("se esperaba con");
+            }
+            if(lexObj.getToken().equalsIgnoreCase("iden")){
+                lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
+            }
+            else{
+                NeoSyntacticAnalyzerX.printError("se esperaba iden");
+            }
+            if(lexObj.getLexem().equalsIgnoreCase(".")){
+                lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
+            }
+            else{
+                NeoSyntacticAnalyzerX.printError("se esperaba .");
+            }
+            if(lexObj.getToken().equalsIgnoreCase("iden")){
+                lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
+            }
+            else{
+                NeoSyntacticAnalyzerX.printError("se esperaba iden");
+            }
+            if(lexObj.getLexem().equalsIgnoreCase(";")){
+                lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
+                flag = true;
+            }
+            else{
+                NeoSyntacticAnalyzerX.printError("se esperaba ;");
+            }
+            return flag;
+    }
 
 }

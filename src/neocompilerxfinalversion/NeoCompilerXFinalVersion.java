@@ -20,7 +20,7 @@ public class NeoCompilerXFinalVersion {
         NeoLexicAnalyzerX NeoLex = new NeoLexicAnalyzerX();
         if(NeoLex.NeoLexicAnalyzer()){
             for(NeoLexema obj : NeoLex.lexemList)
-                System.out.println("<" + obj.getLexem() + "|" + obj.getLexemType() + ">");
+                System.out.println("<" + obj.getLexem() + "|" + obj.getToken() + ">");
         }
     }
     
