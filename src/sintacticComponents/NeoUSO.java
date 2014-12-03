@@ -18,42 +18,42 @@ public class NeoUSO {
     private boolean flag;
     private NeoLexema lexObj;
     
-    public NeoUSO(){
+    public NeoUSO(NeoLexema lexObj){
+        this.lexObj = lexObj;
     }
 
     public boolean init() {
         if(lexObj.getLexem().equalsIgnoreCase("con")){
                 lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
-            }
-            else{
-                NeoSyntacticAnalyzerX.printError("se esperaba con");
-            }
-            if(lexObj.getToken().equalsIgnoreCase("iden")){
-                lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
-            }
-            else{
-                NeoSyntacticAnalyzerX.printError("se esperaba iden");
-            }
-            if(lexObj.getLexem().equalsIgnoreCase(".")){
-                lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
-            }
-            else{
-                NeoSyntacticAnalyzerX.printError("se esperaba .");
-            }
-            if(lexObj.getToken().equalsIgnoreCase("iden")){
-                lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
-            }
-            else{
-                NeoSyntacticAnalyzerX.printError("se esperaba iden");
-            }
-            if(lexObj.getLexem().equalsIgnoreCase(";")){
-                lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
-                flag = true;
-            }
-            else{
-                NeoSyntacticAnalyzerX.printError("se esperaba ;");
-            }
-            return flag;
+        }
+        else{
+            NeoSyntacticAnalyzerX.printError("se esperaba con");
+        }
+        if(lexObj.getToken().equalsIgnoreCase("iden")){
+            lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
+        }
+        else{
+            NeoSyntacticAnalyzerX.printError("se esperaba iden");
+        }
+        if(lexObj.getLexem().equalsIgnoreCase(".")){
+            lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
+        }
+        else{
+            NeoSyntacticAnalyzerX.printError("se esperaba .");
+        }
+        if(lexObj.getToken().equalsIgnoreCase("iden")){
+            lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
+        }
+        else{
+            NeoSyntacticAnalyzerX.printError("se esperaba iden");
+        }
+        if(lexObj.getLexem().equalsIgnoreCase(";")){
+            flag = true;
+        }
+        else{
+            NeoSyntacticAnalyzerX.printError("se esperaba ;");
+        }
+        return flag;
     }
 
 }

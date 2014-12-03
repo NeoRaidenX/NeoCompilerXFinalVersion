@@ -18,14 +18,23 @@ public class NeoVARS {
     private boolean flag;
     private NeoLexema lexObj;
     
-    public boolean init(){
-        do{ 
-            lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
+    public NeoVARS(NeoLexema lexObj){
+        this.lexObj = lexObj;
+    }
+    
+    public void init(){
+        while(true){ 
             if(lexObj.getToken().equalsIgnoreCase("iden")){
                 lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
-            }else
+            }else{
                 NeoSyntacticAnalyzerX.printError("Se esperaba iden");
-        }while(lexObj.getLexem().equalsIgnoreCase(","));
+                break;
+            }
+            
+            if(lexObj.getLexem().equals(","))
+                lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
+            else break;
+        }
         
         if(lexObj.getLexem().equalsIgnoreCase(":")){
             lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
@@ -35,26 +44,32 @@ public class NeoVARS {
         
         if(lexObj.getLexem().equalsIgnoreCase("constante")){
             lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
-            new NeoTIPO().init();
+            new NeoTIPO(lexObj).init();
+            lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
             if(lexObj.getLexem().equalsIgnoreCase(":=")){
                 lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
-                new NeoCTE().init();
+                new NeoCTE(lexObj).init();
+                lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
             }else{
                 NeoSyntacticAnalyzerX.printError("Se esperaba := ya que es definido como CONSTANTE");
             }
         }
         
-        new NeoTIPO().init();
+        new NeoTIPO(lexObj).init();
+        lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
         
         if(lexObj.getLexem().equalsIgnoreCase(":=")){
                 lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
-                new NeoCTE().init();
-        }else if(lexObj.getLexem().equalsIgnoreCase(";"))
-            lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
-        else{
+                new NeoCTE(lexObj).init();
+                lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
+        }
+        
+        if(lexObj.getLexem().equalsIgnoreCase(";")){
+            //lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
+            flag = true;
+        }else{
             NeoSyntacticAnalyzerX.printError("Se esperaba := o ;");
-        
-        
+        }
     }
 
 }
