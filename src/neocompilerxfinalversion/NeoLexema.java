@@ -12,9 +12,11 @@ package neocompilerxfinalversion;
  */
 public class NeoLexema {
     String lexem, token;
-    public NeoLexema(String lexem, String lexemType){
+    int codeLine;
+    public NeoLexema(String lexem, String lexemType, int codeLine){
         this.lexem = lexem;
         this.token = lexemType;
+        this.codeLine = codeLine;
     }
 
     public String getLexem() {
@@ -32,6 +34,16 @@ public class NeoLexema {
     public void setToken(String lexemType) {
         this.token = lexemType;
     }
+
+    public int getCodeLine() {
+        return codeLine;
+    }
+
+    public void setCodeLine(int codeLine) {
+        this.codeLine = codeLine;
+    }
+    
+    
     
 
 }

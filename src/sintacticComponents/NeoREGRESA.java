@@ -7,28 +7,33 @@
 package sintacticComponents;
 
 import neocompilerxfinalversion.NeoLexema;
+import neocompilerxfinalversion.NeoLexicAnalyzerX;
 import neocompilerxfinalversion.NeoSyntacticAnalyzerX;
 
 /**
  * 
  * @author Neo Raiden X <neoraidenx@gmail.com>
  */
-public class NeoCTE {
+public class NeoREGRESA {
     private NeoLexema lexObj;
     private boolean flag;
     
-    public NeoCTE(NeoLexema lexObj){
+    public NeoREGRESA(NeoLexema lexObj){
         this.lexObj = lexObj;
     }
     
     public boolean init(){
-        if(lexObj.getToken().equalsIgnoreCase("CteEnt")||lexObj.getToken().equalsIgnoreCase("CteCad")||lexObj.getToken().equalsIgnoreCase("CteDec"))
+        if(lexObj.getLexem().equalsIgnoreCase("regresa")){
+            lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
             flag = true;
-        else if(lexObj.getLexem().equalsIgnoreCase("falso")||lexObj.getLexem().equalsIgnoreCase("verdadero"))
-            flag = true;
+        }
         else
-            NeoSyntacticAnalyzerX.printError("Se esperaba CTE",lexObj.getCodeLine(), getClass().getName());
+            NeoSyntacticAnalyzerX.printError("Se esperaba regresa",lexObj.getCodeLine(), getClass().getName());
+        
+        if(new NeoEXPR(lexObj).init()){
+            flag = true;
+        }
+        
         return flag;
     }
-
 }

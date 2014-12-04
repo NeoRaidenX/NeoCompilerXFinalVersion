@@ -24,32 +24,33 @@ public class NeoLIB {
     public boolean init(){
         //lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
         while(true){
+            System.out.println("DEBUG:" + lexObj.getLexem());
             if(lexObj.getLexem().equalsIgnoreCase("con")){
                 lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
             }
             else{
-                NeoSyntacticAnalyzerX.printError("se esperaba con");
+                NeoSyntacticAnalyzerX.printError("se esperaba con",lexObj.getCodeLine(), getClass().getName());
                 break;
             }
             if(lexObj.getToken().equalsIgnoreCase("iden")){
                 lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
             }
             else{
-                NeoSyntacticAnalyzerX.printError("se esperaba iden");
+                NeoSyntacticAnalyzerX.printError("se esperaba iden",lexObj.getCodeLine(), getClass().getName());
                 break;
             }
-            if(lexObj.getLexem().equalsIgnoreCase(".")){
+            if(lexObj.getLexem().equals(".")){
                 lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
             }
             else{
-                NeoSyntacticAnalyzerX.printError("se esperaba .");
+                NeoSyntacticAnalyzerX.printError("se esperaba .",lexObj.getCodeLine(), getClass().getName());
                 break;
             }
             if(lexObj.getToken().equalsIgnoreCase("iden")){
                 lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
             }
             else{
-                NeoSyntacticAnalyzerX.printError("se esperaba iden");
+                NeoSyntacticAnalyzerX.printError("se esperaba iden",lexObj.getCodeLine(), getClass().getName());
                 break;
             }
             if(lexObj.getLexem().equalsIgnoreCase(";")){
@@ -57,7 +58,7 @@ public class NeoLIB {
                 flag = true;
             }
             else{
-                NeoSyntacticAnalyzerX.printError("se esperaba ;");
+                NeoSyntacticAnalyzerX.printError("se esperaba ;",lexObj.getCodeLine(), getClass().getName());
                 break;
             }
             if(NeoLexicAnalyzerX.getNextSymbol().getLexem().equalsIgnoreCase("con")){

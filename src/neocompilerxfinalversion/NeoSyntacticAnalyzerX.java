@@ -6,6 +6,8 @@
 
 package neocompilerxfinalversion;
 
+import sintacticComponents.NeoPRGM;
+
 /**
  * 
  * @author Neo Raiden X <neoraidenx@gmail.com>
@@ -16,7 +18,13 @@ public class NeoSyntacticAnalyzerX {
         
     }
     
-    public static void printError(String errorString){
+    public void init(){
+        new NeoPRGM().execute();
+    }
+    
+    public static void printError(String errorString, int currentLine, String classError){
+        System.err.println("Debug: " + classError);
+        System.err.print("[Error SINTACTICO en linea: " + currentLine + "] -> ");
         System.err.println(errorString);
     }
 }

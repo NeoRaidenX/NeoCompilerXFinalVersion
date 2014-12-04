@@ -50,7 +50,7 @@ public class NeoLexicAnalyzerX {
     private final int[][] neoLexAutomata = {
         //         0    1   2   3   4   5   6   7   8   9   10   11   12  13  14  15  16      17        18    19  20  21
         //       +*/%^ | < | > | = | : | y | o | n | m | d | " | 0-9 | . | , | ( | ) | ; | A-C E-L P-Z | _ | otro| - | & 
-        /*q0*/ {   1   , 2 , 4 , 25 , 5 , 13, 13, 14, 16, 20, 8 ,  10 , 7 , 7 , 7 , 7 , 7 ,     20      ,ERR, ERR, 22, 24},
+        /*q0*/ {   1   , 2 , 4 , 25, 5 , 13, 13, 14, 16, 20, 8 ,  10 , 7 , 7 , 7 , 7 , 7 ,     20      ,ERR, ERR, 22, 24},
         /*q1*/ {  ACP  ,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP, ACP ,ACP,ACP,ACP,ACP,ACP,     ACP     ,ACP, ACP,ACP,ACP},
         /*q2*/ {  ACP  ,ACP, 3 , 3 ,ACP,ACP,ACP,ACP,ACP,ACP,ACP, ACP ,ACP,ACP,ACP,ACP,ACP,     ACP     ,ACP, ACP,ACP,ACP},
         /*q3*/ {  ACP  ,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP, ACP ,ACP,ACP,ACP,ACP,ACP,     ACP     ,ACP, ACP,ACP,ACP},
@@ -124,9 +124,9 @@ public class NeoLexicAnalyzerX {
             }
             lexem += currentToken;
             if(futureSight(status,index,lineChars)){
-                lexemList.add(new NeoLexema(lexem,getSymbolToken(status)));
+                lexemList.add(new NeoLexema(lexem,getSymbolToken(status),currentLine));
                 if(index >= lineChars.length)
-                    lexemList.add(new NeoLexema("EOL","EOL"));
+                    lexemList.add(new NeoLexema("EOL","EOL",currentLine));
                 lexem = "";
                 status = 0;
                 //index++;
@@ -195,15 +195,15 @@ public class NeoLexicAnalyzerX {
             case 6:
                 return "OpAsignacion";
             case 9:
-                return "Cadena";
+                return "CteCad";
             case 10:
-                return "Entero";
+                return "CteEnt";
             case 12:
-                return "Decimal";
+                return "teDec";
             case 13: case 15:
                 return "OpLogico";
             case 14: case 16: case 18: case 19: case 20:
-                return "Identi";
+                return "iden";
             case 23:
                 return "Comentario";
             case 24:
@@ -239,11 +239,15 @@ public class NeoLexicAnalyzerX {
     }
     
     public static NeoLexema getNextSymbol(){
-        return lexemList.get(currentSinIdx + 1);
+        return lexemList.get(currentSinIdx);
+    }
+    
+    public static void restoreIdx(int past){
+        currentSinIdx = past -1;
     }
     
     public static void killThemAll(){
-        while(getCurrentSymbol().equalsIgnoreCase(";")||getCurrentSymbol().equalsIgnoreCase("fin"))
+        //while(getCurrentSymbol().equalsIgnoreCase(";")||getCurrentSymbol().equalsIgnoreCase("fin"))
             getNextSymbol();
     }
     

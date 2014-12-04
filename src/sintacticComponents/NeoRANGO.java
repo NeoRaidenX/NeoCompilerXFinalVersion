@@ -26,24 +26,24 @@ public class NeoRANGO {
         if(lexObj.getLexem().equals("("))
             lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
         else
-            NeoSyntacticAnalyzerX.printError("se esperaba (");
+            NeoSyntacticAnalyzerX.printError("se esperaba (",lexObj.getCodeLine(), getClass().getName());
         while(true){
             if(lexObj.getToken().equalsIgnoreCase("CteEnt"))
                 lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
             else
-                NeoSyntacticAnalyzerX.printError("se esperaba CteEnt");
+                NeoSyntacticAnalyzerX.printError("se esperaba CteEnt",lexObj.getCodeLine(), getClass().getName());
             if(lexObj.getLexem().equals("."))
                 lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
             else
-                NeoSyntacticAnalyzerX.printError("se esperaba .");
+                NeoSyntacticAnalyzerX.printError("se esperaba .",lexObj.getCodeLine(), getClass().getName());
             if(lexObj.getLexem().equals("."))
                 lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
             else
-                NeoSyntacticAnalyzerX.printError("se esperaba .");
+                NeoSyntacticAnalyzerX.printError("se esperaba .",lexObj.getCodeLine(), getClass().getName());
             if(lexObj.getToken().equalsIgnoreCase("CteEnt"))
                 lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
             else
-                NeoSyntacticAnalyzerX.printError("se esperaba CteEnt");
+                NeoSyntacticAnalyzerX.printError("se esperaba CteEnt",lexObj.getCodeLine(), getClass().getName());
             if(lexObj.getLexem().equals(","))
                 lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
             else
@@ -52,7 +52,7 @@ public class NeoRANGO {
         if(lexObj.getLexem().equals(")"))
             flag = true;
         else
-            NeoSyntacticAnalyzerX.printError("se esperaba )");
+            NeoSyntacticAnalyzerX.printError("se esperaba )",lexObj.getCodeLine(), getClass().getName());
         
         return flag;
     }

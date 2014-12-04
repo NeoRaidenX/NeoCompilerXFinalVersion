@@ -27,7 +27,7 @@ public class NeoVARS {
             if(lexObj.getToken().equalsIgnoreCase("iden")){
                 lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
             }else{
-                NeoSyntacticAnalyzerX.printError("Se esperaba iden");
+                NeoSyntacticAnalyzerX.printError("Se esperaba iden",lexObj.getCodeLine(), getClass().getName());
                 break;
             }
             
@@ -39,7 +39,7 @@ public class NeoVARS {
         if(lexObj.getLexem().equalsIgnoreCase(":")){
             lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
         }else{
-            NeoSyntacticAnalyzerX.printError("Se esperaba :");
+            NeoSyntacticAnalyzerX.printError("Se esperaba :",lexObj.getCodeLine(), getClass().getName());
         }
         
         if(lexObj.getLexem().equalsIgnoreCase("constante")){
@@ -51,7 +51,7 @@ public class NeoVARS {
                 new NeoCTE(lexObj).init();
                 lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
             }else{
-                NeoSyntacticAnalyzerX.printError("Se esperaba := ya que es definido como CONSTANTE");
+                NeoSyntacticAnalyzerX.printError("Se esperaba := ya que es definido como CONSTANTE",lexObj.getCodeLine(), getClass().getName());
             }
         }
         
@@ -68,7 +68,7 @@ public class NeoVARS {
             //lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
             flag = true;
         }else{
-            NeoSyntacticAnalyzerX.printError("Se esperaba := o ;");
+            NeoSyntacticAnalyzerX.printError("Se esperaba := o ;",lexObj.getCodeLine(), getClass().getName());
         }
     }
 

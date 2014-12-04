@@ -13,22 +13,23 @@ import neocompilerxfinalversion.NeoSyntacticAnalyzerX;
  * 
  * @author Neo Raiden X <neoraidenx@gmail.com>
  */
-public class NeoCTE {
+public class NeoBLOQUE {
     private NeoLexema lexObj;
     private boolean flag;
     
-    public NeoCTE(NeoLexema lexObj){
+    public NeoBLOQUE(NeoLexema lexObj){
         this.lexObj = lexObj;
     }
     
     public boolean init(){
-        if(lexObj.getToken().equalsIgnoreCase("CteEnt")||lexObj.getToken().equalsIgnoreCase("CteCad")||lexObj.getToken().equalsIgnoreCase("CteDec"))
-            flag = true;
-        else if(lexObj.getLexem().equalsIgnoreCase("falso")||lexObj.getLexem().equalsIgnoreCase("verdadero"))
+        if(!lexObj.getLexem().equalsIgnoreCase("fin"))
+            new NeoESTATUTOS(lexObj).init();
+        if(lexObj.getLexem().equalsIgnoreCase("fin"))
             flag = true;
         else
-            NeoSyntacticAnalyzerX.printError("Se esperaba CTE",lexObj.getCodeLine(), getClass().getName());
+            NeoSyntacticAnalyzerX.printError("Se esperaba fin",lexObj.getCodeLine(), getClass().getName());
+            
         return flag;
     }
-
+    
 }

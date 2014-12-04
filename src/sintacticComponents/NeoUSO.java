@@ -27,31 +27,31 @@ public class NeoUSO {
                 lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
         }
         else{
-            NeoSyntacticAnalyzerX.printError("se esperaba con");
+            NeoSyntacticAnalyzerX.printError("se esperaba con",lexObj.getCodeLine(), getClass().getName());
         }
         if(lexObj.getToken().equalsIgnoreCase("iden")){
             lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
         }
         else{
-            NeoSyntacticAnalyzerX.printError("se esperaba iden");
+            NeoSyntacticAnalyzerX.printError("se esperaba iden",lexObj.getCodeLine(), getClass().getName());
         }
         if(lexObj.getLexem().equalsIgnoreCase(".")){
             lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
         }
         else{
-            NeoSyntacticAnalyzerX.printError("se esperaba .");
+            NeoSyntacticAnalyzerX.printError("se esperaba .",lexObj.getCodeLine(), getClass().getName());
         }
         if(lexObj.getToken().equalsIgnoreCase("iden")){
             lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
         }
         else{
-            NeoSyntacticAnalyzerX.printError("se esperaba iden");
+            NeoSyntacticAnalyzerX.printError("se esperaba iden",lexObj.getCodeLine(), getClass().getName());
         }
         if(lexObj.getLexem().equalsIgnoreCase(";")){
             flag = true;
         }
         else{
-            NeoSyntacticAnalyzerX.printError("se esperaba ;");
+            NeoSyntacticAnalyzerX.printError("se esperaba ;",lexObj.getCodeLine(), getClass().getName());
         }
         return flag;
     }

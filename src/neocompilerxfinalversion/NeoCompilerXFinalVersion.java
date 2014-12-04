@@ -19,8 +19,10 @@ public class NeoCompilerXFinalVersion {
         // TODO code application logic here
         NeoLexicAnalyzerX NeoLex = new NeoLexicAnalyzerX();
         if(NeoLex.NeoLexicAnalyzer()){
-            for(NeoLexema obj : NeoLex.lexemList)
-                System.out.println("<" + obj.getLexem() + "|" + obj.getToken() + ">");
+            //for(NeoLexema obj : NeoLex.lexemList)
+                //System.out.println("<" + obj.getLexem() + "|" + obj.getToken() + ">");
+            NeoSyntacticAnalyzerX NeoSyn = new NeoSyntacticAnalyzerX();
+            NeoSyn.init();
         }
     }
     

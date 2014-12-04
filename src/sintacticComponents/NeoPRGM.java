@@ -15,50 +15,60 @@ import neocompilerxfinalversion.NeoSyntacticAnalyzerX;
 public class NeoPRGM {
     NeoLexema lexObj;
     public NeoPRGM(){
-        execute();
     }
     public void execute(){
-        new NeoLIB().init();
-        new NeoUSO().init();
+        lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
+        new NeoLIB(lexObj).init();
+        lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
+        new NeoUSO(lexObj).init();
         lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
         
         if(lexObj.getLexem().equalsIgnoreCase("procedimiento")){
             lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
         }else
-            NeoSyntacticAnalyzerX.printError("Se esperaba procedimiento");
+            NeoSyntacticAnalyzerX.printError("Se esperaba procedimiento",lexObj.getCodeLine(), getClass().getName());
         if(lexObj.getToken().equalsIgnoreCase("iden")){
             lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
         }else
-            NeoSyntacticAnalyzerX.printError("Se esperaba iden");
-        
-        while(lexObj.getLexem().equalsIgnoreCase("es")){
+            NeoSyntacticAnalyzerX.printError("Se esperaba iden",lexObj.getCodeLine(), getClass().getName());
+        if(lexObj.getLexem().equalsIgnoreCase("es")){
             lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
-            if(lexObj.getToken().equalsIgnoreCase("iden")){
-                new NeoVARS().init();
-            }else if(lexObj.getToken().equalsIgnoreCase("Cadena")||lexObj.getToken().equalsIgnoreCase("Entero")||
-                    lexObj.getToken().equalsIgnoreCase("Decimal")||lexObj.getToken().equalsIgnoreCase("Logico")||
-                    lexObj.getToken().equalsIgnoreCase("Tipo")){
-                new NeoTIPO();
+            while(true){
+                if(lexObj.getToken().equalsIgnoreCase("iden")){
+                    new NeoVARS(lexObj).init();
+                }else if(lexObj.getToken().equalsIgnoreCase("Cadena")||lexObj.getToken().equalsIgnoreCase("Entero")||
+                        lexObj.getToken().equalsIgnoreCase("Decimal")||lexObj.getToken().equalsIgnoreCase("Logico")||
+                        lexObj.getToken().equalsIgnoreCase("Tipo")){
+                    new NeoTIPO(lexObj).init();
+                }
+                else
+                    NeoSyntacticAnalyzerX.printError("se esperaba iden o tipo de dato",lexObj.getCodeLine(), getClass().getName());
             }
         }
         
         if(lexObj.getLexem().equalsIgnoreCase("inicio")){
-            new NeoFUNPROC();
+            lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
+            if(lexObj.getLexem().equalsIgnoreCase("declara")){
+                lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
+                new NeoFUNPROC(lexObj).init();
+            }else
+                new NeoBLOQUE(lexObj).init();
         }
+        else
+            NeoSyntacticAnalyzerX.printError("Se esperaba inicio",lexObj.getCodeLine(), getClass().getName());
         
-        new NeoBLOQUE();
         lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
         
         if(lexObj.getToken().equalsIgnoreCase("iden"))
             lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
         else
-            NeoSyntacticAnalyzerX.printError("Se esperaba iden");
+            NeoSyntacticAnalyzerX.printError("Se esperaba iden",lexObj.getCodeLine(), getClass().getName());
         
         if(lexObj.getLexem().equalsIgnoreCase(";"))
-            NeoSyntacticAnalyzerX.printError("FIN NeoPRGM");
+            NeoSyntacticAnalyzerX.printError("FIN NeoPRGM",lexObj.getCodeLine(), getClass().getName());
             //lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
         else
-            NeoSyntacticAnalyzerX.printError("Se esperaba ;");
+            NeoSyntacticAnalyzerX.printError("Se esperaba ;",lexObj.getCodeLine(), getClass().getName());
         
             
             
