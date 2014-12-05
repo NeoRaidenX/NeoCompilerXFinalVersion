@@ -23,11 +23,11 @@ public class NeoUSO {
     }
 
     public boolean init() {
-        if(lexObj.getLexem().equalsIgnoreCase("con")){
+        if(lexObj.getLexem().equalsIgnoreCase("usar")){
                 lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
         }
         else{
-            NeoSyntacticAnalyzerX.printError("se esperaba con",lexObj.getCodeLine(), getClass().getName());
+            NeoSyntacticAnalyzerX.printError("se esperaba usar",lexObj.getCodeLine(), getClass().getName());
         }
         if(lexObj.getToken().equalsIgnoreCase("iden")){
             lexObj = NeoLexicAnalyzerX.getCurrentSymbol();

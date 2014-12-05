@@ -18,7 +18,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Stream;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -29,20 +31,9 @@ import sun.rmi.runtime.Log;
  * @author Neo Raiden X <neoraidenx@gmail.com>
  */
 public class NeoLexicAnalyzerX {
-    /*public String[] reserv ={"aborta","abs","abstracto","acepta","accesa","alias",
-                                "todo","y","arreglo","at","inicia","cuerpo","caso","constante",
-                                "declara","retraso","delta","digitos","hacer","sino",
-                                "sinosi","fin","entrada","excepcion","salida","para",
-                                "funcion","generico","vea","si","en","interface","es",
-                                "limitado","ciclo","mod","nuevo","no","nulo","de","o",
-                                "otros","fuera","sobrecarga","paquete","pragma","privado",
-                                "procedimiento","protegido","eleva","rango","record","rem",
-                                "renombra","rencola","regresa","reversa","selecciona",
-                                "separa","algun","subtipo","sincronizado","etiqueta",
-                                "tarea","terminado","luego","tipo","hasta","usa","cuando",
-                                "mientras","con","xor"};*/
+    
     private final int ACP = 86, ERR = -1;
-    private final String[] keywords ={"con", "usar", "procedimiento", "constante", "es", "entero",
+    private final String[] reserv ={"con", "usar", "procedimiento", "constante", "es", "entero",
                                 "decimal", "cadena", "lógico", "arreglo", "de", "tipo", 
                                 "declara", "inicio", "fin", "si", "hacer", "sino", "regresa", 
                                 "funcion", "entrada", "para", "ciclo", "mientras", "despliega", 
@@ -79,7 +70,6 @@ public class NeoLexicAnalyzerX {
         /*q26*/{  ACP  ,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP,ACP, ACP ,ACP,ACP,ACP,ACP,ACP,     ACP     ,ACP, ACP,ACP,ACP}
     };
     
-    public final HashSet reservSet = new HashSet(Arrays.asList(keywords));
     public static ArrayList<NeoLexema> lexemList = new ArrayList();
     public LinkedHashMap<String, String> symbolTable = new LinkedHashMap();
     public int currentLine = 0, status = 0;
@@ -124,7 +114,13 @@ public class NeoLexicAnalyzerX {
             }
             lexem += currentToken;
             if(futureSight(status,index,lineChars)){
-                lexemList.add(new NeoLexema(lexem,getSymbolToken(status),currentLine));
+                if(getSymbolToken(status).equalsIgnoreCase("iden"))
+                    if(esPalRes(lexem))
+                        lexemList.add(new NeoLexema(lexem,"palRes",currentLine));
+                    else
+                        lexemList.add(new NeoLexema(lexem,getSymbolToken(status),currentLine));
+                else
+                    lexemList.add(new NeoLexema(lexem,getSymbolToken(status),currentLine));
                 if(index >= lineChars.length)
                     lexemList.add(new NeoLexema("EOL","EOL",currentLine));
                 lexem = "";
@@ -199,7 +195,7 @@ public class NeoLexicAnalyzerX {
             case 10:
                 return "CteEnt";
             case 12:
-                return "teDec";
+                return "CteDec";
             case 13: case 15:
                 return "OpLogico";
             case 14: case 16: case 18: case 19: case 20:
@@ -234,7 +230,8 @@ public class NeoLexicAnalyzerX {
     }
     
     public static NeoLexema getCurrentSymbol(){
-        
+        if(lexemList.get(currentSinIdx).getLexem().equalsIgnoreCase("EOL") && currentSinIdx < lexemList.size())
+            currentSinIdx++;
         return lexemList.get(currentSinIdx++);
     }
     
@@ -249,6 +246,14 @@ public class NeoLexicAnalyzerX {
     public static void killThemAll(){
         //while(getCurrentSymbol().equalsIgnoreCase(";")||getCurrentSymbol().equalsIgnoreCase("fin"))
             getNextSymbol();
+    }
+    
+    public boolean esPalRes(String iden){
+        for(String palRes : reserv){
+            if(palRes.equalsIgnoreCase(iden))
+                return true;
+        }
+        return false;
     }
     
     //TODO: modificar grafo para aceptar caracter &

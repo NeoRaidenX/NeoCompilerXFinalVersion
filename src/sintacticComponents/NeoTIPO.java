@@ -28,6 +28,7 @@ public class NeoTIPO {
                 ||lexObj.getToken().equalsIgnoreCase("decimal")||lexObj.getToken().equalsIgnoreCase("logico"))
             flag = true;
         else if(lexObj.getLexem().equalsIgnoreCase("tipo")){
+            
             lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
             if(lexObj.getToken().equalsIgnoreCase("iden"))
                 lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
@@ -38,6 +39,11 @@ public class NeoTIPO {
                 lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
             else
                 NeoSyntacticAnalyzerX.printError("Se esperaba es",lexObj.getCodeLine(), getClass().getName());
+            
+            if(lexObj.getToken().equalsIgnoreCase("palRes"))
+                lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
+            else
+                NeoSyntacticAnalyzerX.printError("Se esperaba arreglo",lexObj.getCodeLine(), getClass().getName());
             
             new NeoRANGO(lexObj).init();
             lexObj = NeoLexicAnalyzerX.getCurrentSymbol();

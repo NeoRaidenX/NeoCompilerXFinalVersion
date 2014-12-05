@@ -36,13 +36,17 @@ public class NeoPRGM {
             while(true){
                 if(lexObj.getToken().equalsIgnoreCase("iden")){
                     new NeoVARS(lexObj).init();
+                    
                 }else if(lexObj.getToken().equalsIgnoreCase("Cadena")||lexObj.getToken().equalsIgnoreCase("Entero")||
                         lexObj.getToken().equalsIgnoreCase("Decimal")||lexObj.getToken().equalsIgnoreCase("Logico")||
-                        lexObj.getToken().equalsIgnoreCase("Tipo")){
+                        lexObj.getToken().equalsIgnoreCase("palRes")){
                     new NeoTIPO(lexObj).init();
                 }
-                else
+                else{
                     NeoSyntacticAnalyzerX.printError("se esperaba iden o tipo de dato",lexObj.getCodeLine(), getClass().getName());
+                    break;
+                }
+                lexObj = NeoLexicAnalyzerX.getCurrentSymbol();
             }
         }
         
